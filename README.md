@@ -1,4 +1,4 @@
-						AiRBnB_clone
+						# AiRBnB_clone
 					===========================
 
 *******
@@ -21,9 +21,9 @@ The AirBnB Clone Console is the genesis of the AirBnB project. In this part, we 
 
 
 
-#Authors
+###### Authors
+==============
 
-=========
--Joshua Momanyi
+- Joshua Momanyi
 
 
