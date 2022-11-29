@@ -4,6 +4,7 @@
 from models.base_model import BaseModel
 import json
 
+
 class FileStorage:
     '''Serializes instances to a JSON file and
     deserializes JSON file to instances
@@ -31,8 +32,6 @@ class FileStorage:
             for key, value in self.__objects.items():
                 dict_add[key] = value.to_dict()
             json.dump(dict_add, f)
-        #with open(FileStorage.__file_path, 'w') as file:
-        #    file.write(json.dumps(FileStorage.__objects))
 
     def reload(self):
         '''deserializes the JSON file to __objects
@@ -44,5 +43,5 @@ class FileStorage:
                     if '__class__' in value:
                         val = classes[value['__class__']](**value)
                         self.__objects[key] = val
-        except:
+        except Exception:
             pass
