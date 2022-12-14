@@ -4,11 +4,11 @@
 import json
 from models.base_model import BaseModel
 
+
 class FileStorage:
-    
+    """FileStorage Class"""
     __file_path = 'file.json'
     __objects = {}
-
 
     def all(self):
         '''returns the `__objects` dict'''
@@ -31,13 +31,6 @@ class FileStorage:
 
     def reload(self):
         '''deserializes the JSON file to __objects'''
-        #try:
-        #    with open(FileStorage.__file_path, 'r') as file:
-        #        dicts = json.load(file)
-        #        FileStorage.__objects = dicts
-
-        #except Exception:
-        #    pass
         try:
             with open(self.__file_path, 'r') as f:
                 file_store = json.load(f)
