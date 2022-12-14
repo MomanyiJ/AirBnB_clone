@@ -1,47 +1,48 @@
 #!/usr/bin/python3
-'''FileStorage Module'''
+"""Defines a FileStorage class"""
 
-from models.base_model import BaseModel
 import json
-
+from models.base_model import BaseModel
 
 class FileStorage:
-    '''Serializes instances to a JSON file and
-    deserializes JSON file to instances
-    '''
-
+    
     __file_path = 'file.json'
     __objects = {}
 
+
     def all(self):
-        '''Returns the dictionary __objects
-        '''
+        '''returns the `__objects` dict'''
         return FileStorage.__objects
 
     def new(self, obj):
-        '''Sets in __objects the obj
-        '''
+        '''sets in __objects the obj with key <obj class name>.id'''
         key = obj.__class__.__name__ + '.' + obj.id
         FileStorage.__objects[key] = obj
 
     def save(self):
-        '''Serializes __objects to the JSON file
-        '''
-        dict_add = {}
-        with open(self.__file_path, 'w') as f:
-            for key, value in self.__objects.items():
-                dict_add[key] = value.to_dict()
-            json.dump(dict_add, f)
+        '''serializes __objects to the JSON file '''
+
+        new_dict = {}
+        for key, value in FileStorage.__objects.items():
+            new_dict[key] = value.to_dict()
+
+        with open(FileStorage.__file_path, 'w') as file:
+            json.dump(new_dict, file)
 
     def reload(self):
-        '''deserializes the JSON file to __objects
-        '''
+        '''deserializes the JSON file to __objects'''
+        #try:
+        #    with open(FileStorage.__file_path, 'r') as file:
+        #        dicts = json.load(file)
+        #        FileStorage.__objects = dicts
+
+        #except Exception:
+        #    pass
         try:
-            with open(self.__file_path, 'r') as f1:
-                file_store = json.load(f1)
-                for key, value in file_store.items():
-                    if '__class__' in value:
-                        val = classes[value['__class__']](**value)
-                        self.__objects[key] = val
-        except Exception:
+            with open(self.__file_path, 'r') as f:
+                file_store = json.load(f)
+                for value in file_store.values():
+                    self.new(eval(value['__class__'])(**value))
+
+        except Exception as e:
             pass

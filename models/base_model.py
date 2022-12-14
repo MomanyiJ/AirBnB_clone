@@ -3,10 +3,12 @@
 
 import uuid
 from datetime import datetime
+import models
 
 
 class BaseModel:
     '''Defines all common attributes/methods for other classes'''
+
     def __init__(self, *args, **kwargs):
         '''Initializes a new instance
         '''
@@ -14,6 +16,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
 
         else:
             for key, value in kwargs.items():
@@ -23,7 +26,6 @@ class BaseModel:
                     self.__dict__[key] = datetime.fromisoformat(value)
                 else:
                     self.__dict__[key] = value
-
 
     def __str__(self):
         '''String representation of our instance
@@ -36,6 +38,7 @@ class BaseModel:
         with the current datetime
         '''
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         ''' returns a dictionary containing all keys/values of
