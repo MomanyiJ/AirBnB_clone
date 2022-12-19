@@ -60,7 +60,7 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in classes:
             print("** class doesn't exist **")
             return
-        elif args == 1:
+        elif len(args) == 1:
             print("** instance id missing **")
             return
         all_objs = storage.all()
@@ -112,6 +112,7 @@ class HBNBCommand(cmd.Cmd):
             if key.id == args[1]:
                 setattr(key, args[2], args[3])
                 return
+        print("** no instance found **")
         storage.save()
 
     def do_EOF(self, line):
