@@ -6,7 +6,7 @@ from models import storage
 from models.base_model import BaseModel
 
 
-classes = ['BaseModel', 'User']
+classes = ['BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review']
 class HBNBCommand(cmd.Cmd):
     '''Command interpreter for my HBNB
     '''
