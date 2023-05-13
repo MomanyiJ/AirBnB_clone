@@ -1,7 +1,9 @@
+#!/usr/bin/python3
 """Defines the Base class for all classes
 """
 
 import uuid
+import copy
 from datetime import datetime
 
 
@@ -14,9 +16,13 @@ class BaseModel:
         updated_at (datetime): datetime when instance was last updated
     """
 
-    id = str(uuid.uuid4())
-    create_at = datetime.now()
-    updated_at = datetime.now()
+    def __init__(self):
+        """Initialises the instance
+        """
+
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = self.created_at
 
 
     def __str__(self):
@@ -38,9 +44,14 @@ class BaseModel:
         """
 
         self_dict = self.__dict__
-        self_dict[__class__] = type(self).__name__
-        if "created_at" in self_dict.keys():
-            self_dict["created_at"] = self.created_at.isoformat()
+        self_dict["__class__"] = type(self).__name__
 
-        if "updated_at" in self_dict.keys():
-            self_dict["updated_at"] = self.updated_at.isoformat()
+        #TODO: the deepcopy function doesn't seem to work. created-updated_at
+        # are converted to the ISO strings. Maybe another solution??
+        create_date = copy.deepcopy(self.created_at)
+        self_dict["created_at"] = create_date.isoformat()
+
+        update_date = copy.deepcopy(self.updated_at)
+        self_dict["updated_at"] = update_date.isoformat()
+
+        return self_dict
