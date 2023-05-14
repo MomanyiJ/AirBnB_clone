@@ -40,6 +40,19 @@ class TestBaseModelClass(unittest.TestCase):
         self.object1.save()
         self.assertNotEqual(now, self.object1.updated_at)
 
+    def test_initialisation_with_kwargs(self):
+        """Tests for proper initialisation with a dict representation
+        """
+
+        self.object1.name = "John"
+        dict_repr = self.object1.to_dict()
+        self.object3 = BaseModel(**dict_repr)
+
+        self.assertEqual(self.object1.id, self.object3.id)
+        self.assertEqual(self.object1.created_at, self.object3.created_at)
+        self.assertEqual(self.object1.updated_at, self.object3.updated_at)
+        self.assertEqual(self.object1.name, self.object3.name)
+
 
     def test_to_dict_method(self):
         """Tests that 'to_dict' has the correct output
