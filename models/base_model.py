@@ -28,7 +28,8 @@ class BaseModel:
 
                 if key in ["created_at", "updated_at"]:
                     setattr(self, key, datetime.strptime(value,
-                                                     "%Y-%m-%dT%H:%M:%S.%f"))
+                                                         "%Y-%m-%dT%H:%M:%S.%f"
+                                                         ))
 
                 setattr(self, key, value)
         else:
@@ -36,20 +37,18 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = self.created_at
 
-
     def __str__(self):
         """Provides the string output for the object
         """
 
         return "[{}] ({}) {}".format(type(self).__name__, self.id,
-                self.__dict__)
+                                     self.__dict__)
 
     def save(self):
         """Updates the updated_at attribute with tehe current datetime
         """
 
         self.updated_at = datetime.now()
-
 
     def to_dict(self):
         """Returns all the key-value pairs of __dict__ of the instance
@@ -58,7 +57,7 @@ class BaseModel:
         self_dict = self.__dict__
         self_dict["__class__"] = type(self).__name__
 
-        #TODO: the deepcopy function doesn't seem to work. created-updated_at
+        # TODO: the deepcopy function doesn't seem to work. created-updated_at
         # are converted to the ISO strings. Maybe another solution??
         create_date = copy.deepcopy(self.created_at)
         self_dict["created_at"] = create_date.isoformat()

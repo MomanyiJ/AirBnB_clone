@@ -4,7 +4,6 @@
 
 import unittest
 from models.base_model import BaseModel
-#BaseModel = __import__("base_model").BaseModel
 
 
 class TestBaseModelClass(unittest.TestCase):
@@ -53,7 +52,6 @@ class TestBaseModelClass(unittest.TestCase):
         self.assertEqual(self.object1.updated_at, self.object3.updated_at)
         self.assertEqual(self.object1.name, self.object3.name)
 
-
     def test_to_dict_method(self):
         """Tests that 'to_dict' has the correct output
         """
@@ -68,6 +66,4 @@ class TestBaseModelClass(unittest.TestCase):
                           '__class__': 'BaseModel'}
 
         self.assertEqual(correct_output, self.object1.to_dict())
-        self.assertEqual(correct_output, self.object1.to_dict())
-
-
+        self.assertEqual(correct_output, self.object1.to_dict())i
