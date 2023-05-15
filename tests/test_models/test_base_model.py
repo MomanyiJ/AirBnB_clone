@@ -66,4 +66,4 @@ class TestBaseModelClass(unittest.TestCase):
                           '__class__': 'BaseModel'}
 
         self.assertEqual(correct_output, self.object1.to_dict())
-        self.assertEqual(correct_output, self.object1.to_dict())i
+        self.assertEqual(correct_output, self.object1.to_dict())

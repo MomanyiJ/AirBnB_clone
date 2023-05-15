@@ -6,6 +6,7 @@ import uuid
 import copy
 from datetime import datetime
 from datetime import date
+from . import storage
 
 
 class BaseModel:
@@ -36,6 +37,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+            storage.new()
 
     def __str__(self):
         """Provides the string output for the object
@@ -49,6 +51,7 @@ class BaseModel:
         """
 
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """Returns all the key-value pairs of __dict__ of the instance
